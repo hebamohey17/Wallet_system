@@ -1,0 +1,11 @@
+{
+    "credentialsNotCorrect": "The email or password is incorrect",
+    "passwordNotFound": "Please change the password from social platform",
+    "passwordNotMatch": "Current password not match the user password",
+    "successChangePassword": "Password chanaged successfully",
+    "invalidVerificationCode": "Invalid verification code entered or already verified",
+    "userNotFound": "User not found",
+    "forgetCodeNotMatch": "Forget code is incorrect",
+    "phoneNumberShouldNotHasLetters": "phone number should not contain letters",
+    "termsNotAccepted": "Terms are not Accepted"
+}
