@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Wallet;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -27,6 +28,9 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+
+        Route::pattern('wallet', '[a-zA-Z0-9-_]+');
+        Route::model('wallet', Wallet::class);
 
         $this->routes(function () {
             Route::middleware('api')

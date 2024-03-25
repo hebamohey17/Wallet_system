@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Exceptions\RegisterException;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -20,13 +21,11 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request)
     {
         try {
-            $user = $this->user->register(
-                $request->email,
-                $request->password,
-                $request->device_token,
-                $request->phone_number,
-                $request->name,
-            );
+            $data = $request->validated();
+            $userData = $data['user'];
+            $userData['password'] = Hash::make($userData['password']);
+            $user = $this->user->register($userData);
+            $user->createWallet($data['wallet']);
 
             return (new UserResource($user))
                 ->additional(['token' => $user->getToken()])

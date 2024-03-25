@@ -19,11 +19,15 @@ use App\Http\Controllers\Auth\PasswordController;
 // Auth
 Route::post('register', [RegisterController::class, 'register'])->name(RouteName::REGISTER);
 Route::post('login', [LoginController::class, 'login'])->name(RouteName::LOGIN);
-Route::post('password/forget', [PasswordController::class, 'forget'])->name(RouteName::FORGET_PASSWORD);
-Route::post('password/reset', [PasswordController::class, 'reset'])->name(RouteName::RESET_PASSWORD);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('logout', [LoginController::class, 'logout'])->name(RouteName::LOGOUT);
+    Route::get('logout', [LoginController::class, 'logout'])->name(RouteName::LOGOUT);
+
+    Route::post('wallets/{wallet}/transaction-history', [\App\Http\Controllers\WalletTransactionsController::class, 'transactionHistory'])->name(RouteName::TRANSFER);
+    Route::post('wallets/{wallet}/transfer', [\App\Http\Controllers\WalletController::class, 'transfer'])->name(RouteName::TRANSFER);
+    Route::post('wallet/check-balance', [\App\Http\Controllers\WalletController::class, 'checkBalance'])->name(RouteName::CHECK_BALANCE);
+    Route::post('wallet/deposit', [\App\Http\Controllers\WalletController::class, 'deposit'])->name(RouteName::DEPOSIT);
+    Route::post('wallet/withdrawal', [\App\Http\Controllers\WalletController::class, 'withdrawal'])->name(RouteName::WITHDRAWAL);
 });
 

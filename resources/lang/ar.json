@@ -8,4 +8,6 @@
     "forgetCodeNotMatch": "Forget code is incorrect",
     "phoneNumberShouldNotHasLetters": "phone number should not contain letters",
     "termsNotAccepted": "Terms are not Accepted",
+    "wallet_deposit_error": "deposit doesn't completed",
+    "WALLET_BALANCE_ERROR": "The amount must be less than or equal to the wallet balance and fees."
 }

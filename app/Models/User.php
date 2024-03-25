@@ -6,6 +6,7 @@ use App\Exceptions\CredentialsNotCorrectException;
 use App\Exceptions\UserNotFoundException;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'password',
         'phone_number',
         'wallet_balance'
     ];
@@ -66,19 +68,23 @@ class User extends Authenticatable
         return auth()->user()->update(['device_token' => $deviceToken]);
     }
 
-    public function register($email, $password, $deviceToken, $phoneNumber, $name): User
+    public function register($data): User
     {
-        return $this->create([
-            'email' => $email,
-            'phone_number' => $phoneNumber,
-            'password' => Hash::make($password),
-            'device_token' => $deviceToken,
-            'name' => $name,
-        ]);
+        return $this->create($data);
     }
 
     public function logout(): bool
     {
         return $this->tokens()->delete();
+    }
+
+    public function createWallet($data)
+    {
+        return $this->wallets()->create($data);
+    }
+
+    public function wallets(): HasMany
+    {
+        return $this->hasMany(Wallet::class, 'user_id');
     }
 }

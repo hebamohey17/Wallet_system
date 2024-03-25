@@ -28,11 +28,12 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|unique:users,email',
-            'phone_number' => 'required|string|regex:/^(?:[+0][1-9])?[0-9]{10,11}$/|unique:users,phone_number',
-            'password' => 'required|min:6',
-            'device_token' => 'required',
-            'name' => 'nullable|string',
+            'user.email' => 'required|string|email|unique:users,email',
+            'user.phone_number' => 'required|string|regex:/^(?:[+0][1-9])?[0-9]{10,11}$/|unique:users,phone_number',
+            'user.password' => 'required|min:6',
+            'user.device_token' => 'required',
+            'user.name' => 'nullable|string',
+            'wallet.payment_address' => 'required|unique:wallets,payment_address'
         ];
     }
 
